@@ -1,74 +1,97 @@
-import { Modal, View, Text, StyleSheet, Button } from 'react-native'
-
+import { Modal, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import colors from "../../constants/colors";
 
 export default function CustomModal(props) {
+  const {
+    modalVisible,
+    itemSelected,
+    onHandlerDeleteItem,
+    onHandlerCompleteItem,
+  } = props;
 
-    const { modalVisible, itemSelected, onHandlerDeleteItem, onHandlerCompleteItem } = props
-
-    return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-        >
-            <View style={styles.modal}>
-                <View style={styles.modalView}>
-                    <View style={styles.modalTitle}>
-                        <Text>
-                        ELIJA UNA OPCIÓN
-                        </Text>
-                    </View>
-                    <View style={styles.modalMessage}>
-                        <Text>Eliminar el item o marcarlo como completado</Text>
-                    </View>
-                    <View style={styles.modalMessage}>
-                        <Text style={styles.modalItem}>{itemSelected.value}</Text>
-                    </View>
-                    <View style={styles.modalButton}>
-                        <Button onPress={() => onHandlerDeleteItem(itemSelected.id)} title='Eliminar' />
-                        <Button onPress={() => onHandlerCompleteItem(itemSelected.id)} title='Completado' />
-                    </View>
-                </View>
-            </View>
-        </Modal>
-    )
+  return (
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <View style={styles.modal}>
+        <View style={styles.modalView}>
+          <View style={styles.modalMessage}>
+            <Text style={styles.modalTextMessage}>
+              ¿Quitar de la lista o marcarlo como comprado?
+            </Text>
+          </View>
+          <View style={styles.modalMessage}>
+            <Text style={styles.modalItem}>{itemSelected.value}</Text>
+          </View>
+          <View style={styles.modalButtonContainer}>
+            <TouchableOpacity
+              onPress={() => onHandlerDeleteItem(itemSelected.id)}
+              style={styles.modalButton}
+            >
+              <Text style={styles.modalTextButon}>Quitar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => onHandlerCompleteItem(itemSelected.id)}
+              style={styles.modalButton}
+            >
+              <Text style={styles.modalTextButon}>Comprado</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
 }
 
 const styles = StyleSheet.create({
-    modal: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        },  
-        modalView: {
-        backgroundColor: 'white',
-        width: '80%',
-        height: '50%',
-        borderRadius: 10,
-        padding: '10%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'column',
-        },
-        modalTitle: {
-        backgroundColor: '#ccc',
-        color: 'white',
-        fontSize: 18,
-        },
-        modalMessage: {
-        marginBottom: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignText: 'center'
-        },
-        modalButton: {
-        marginTop: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-        },
-        modalItem: {
-        fontSize: 30
-        }
-})
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalView: {
+    backgroundColor: colors.darkgray,
+    width: "80%",
+    height: "50%",
+    borderRadius: 10,
+    padding: "10%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  modalMessage: {
+    marginBottom: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    alignText: "center",
+  },
+  modalButtonContainer: {
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  modalButton: {
+    backgroundColor: colors.slategray,
+    color: colors.floralwhite,
+    padding: 8,
+    borderRadius: 10,
+  },
+  modalTextButon: {
+    fontFamily: "OSregular",
+    fontSize: 18,
+  },
+  modalItem: {
+    fontSize: 24,
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    padding: "4%",
+    fontFamily: "OSregular",
+    color: colors.floralwhite,
+  },
+  modalTextMessage: {
+    fontSize: 24,
+    textAlign: "center",
+    fontFamily: "OSregular",
+  },
+});
