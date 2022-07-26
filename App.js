@@ -1,12 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import { useState } from "react";
-import CustomModal from "./components/Modal";
-import AddItem from "./components/AddItem";
-import List from "./components/List";
-import Header from "./components/Header";
-import WelcomeScreen from "./pages/welcomeScreen";
+/* import CustomModal from "./components/Modal"; */
+/* import AddItem from "./components/AddItem"; */
+/* import List from "./components/List"; */
+/* import Header from "./components/Header"; */
+import WelcomeScreen from "./Screens/welcomeScreen"; 
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import NavigationMenu from "./navigation/NavigationMenu"
 
 export default function App() {
   const [loaded] = useFonts({
@@ -59,11 +60,14 @@ export default function App() {
   if (!loaded) return <AppLoading />;
 
   return (
-    <>
+
+    
+   <>
       {welcomeScreen ? (
         <WelcomeScreen handlerWelcome={onHandlerWelcome} />
       ) : (
-        <View style={styles.screen}>
+        <NavigationMenu/>  
+         /*<View style={styles.screen}>
           <Header title={"Crea tu lista de compras"} />
           <CustomModal
             modalVisible={modalVisible}
@@ -77,7 +81,7 @@ export default function App() {
             onHandlerChangeItem={onHandlerChangeItem}
           />
           <List itemList={itemList} onHandlerModal={onHandlerModal} />
-        </View>
+        </View>*/
       )}
     </>
   );
