@@ -1,25 +1,35 @@
-import { View, Text, StyleSheet,Button} from "react-native";
+import {FlatList,View} from "react-native";
+import {PRODUCTS} from '../data/products'
+import ProductItem from '../components/ProductItem';
 
-const CategoryProductsScreen = ({navigation}) => {
+
+
+const CategoryProductsScreen = ({navigation,route}) => {
+
+    const productos = PRODUCTS.filter(product => product.category === route.params.categoryID)
+
+    const handleSelected = (item) => {
+        navigation.navigate('Details', {
+            productID: item.id,
+            name:item.name,
+        })
+    }
+
+    const renderItemProduct = ({ item }) => (
+        <ProductItem item={item} onSelected={handleSelected} />
+    )
+
+
     return(
-        <View style={styles.screen}>
-            <Text >
-            Productos
-            </Text>
-            <Button
-            title="Ir a detalles" onPress={() => {
-            navigation.navigate('Details')
-            }} />
-        </View>
+   
+        <FlatList
+        data={productos}
+        renderItem={renderItemProduct}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        ListHeaderComponent={()=><View style={{height:25}}/>}
+        />
     )
 }
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    }
-})
 
 export default CategoryProductsScreen
