@@ -1,5 +1,4 @@
-import {NavigationContainer} from '@react-navigation/native'
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CategoriesScreen from '../Screens/CategoriesScreen'
 import CategoryProductsScreen from '../Screens/CategoryProductsScreen'
 import ProductDetailScreen from '../Screens/ProductDetailScreen'
@@ -11,8 +10,9 @@ const  NavigationMenu = () => {
     
     return(
 
-    <NavigationContainer>
-        <Stack.Navigator initialRouteName= 'Home' screenOptions={{
+        <Stack.Navigator 
+        initialRouteName= 'Home' 
+        screenOptions={{
                 headerStyle: {
                     backgroundColor: Platform.OS === 'android' ? colors.primary : colors.floralwhite,
                 
@@ -28,7 +28,6 @@ const  NavigationMenu = () => {
             <Stack.Screen name='Details' component={ProductDetailScreen} options={({route})=>({
                 title: route.params.name})} />
         </Stack.Navigator>
-    </NavigationContainer>
-)
+    )
 }
 export default NavigationMenu
