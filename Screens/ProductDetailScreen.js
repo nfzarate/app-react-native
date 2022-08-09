@@ -1,10 +1,14 @@
 import { View, Text, StyleSheet} from "react-native";
+import { useSelector } from 'react-redux'
 
 const PoductDetailScreen = () => {
+
+    const product = useSelector(store => store.products.selected)
+
     return(
         <View style={styles.screen}>
             <Text>
-            Detalles/Cantidades
+            {product.name}
             </Text>
         </View>
     )

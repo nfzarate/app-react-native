@@ -1,16 +1,25 @@
+import { useEffect } from "react";
 import {FlatList,View} from "react-native";
-import {PRODUCTS} from '../data/products'
 import ProductItem from '../components/ProductItem';
+import { useSelector, useDispatch} from 'react-redux'
+import {filteredProduct, selectProduct} from '../store/actions/products.action'
 
 
 
 const CategoryProductsScreen = ({navigation,route}) => {
 
-    const productos = PRODUCTS.filter(product => product.category === route.params.categoryID)
+    const dispatch = useDispatch()
+    const categoryProducts = useSelector(store => store.products.filteredProducts)
+    const category = useSelector(store => store.categories.selected )
+
+    useEffect(() => {
+        dispatch(filteredProduct(category.id))
+    },[])
+
 
     const handleSelected = (item) => {
+        dispatch(selectProduct(item.id))
         navigation.navigate('Details', {
-            productID: item.id,
             name:item.name,
         })
     }
@@ -23,7 +32,7 @@ const CategoryProductsScreen = ({navigation,route}) => {
     return(
    
         <FlatList
-        data={productos}
+        data={categoryProducts}
         renderItem={renderItemProduct}
         keyExtractor={item => item.id}
         numColumns={2}

@@ -7,6 +7,9 @@ import WelcomeScreen from "./Screens/welcomeScreen";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import MainNavigation from "./navigation";
+import {Provider} from 'react-redux'
+import store from './store'
+
 
 export default function App() {
   const [loaded] = useFonts({
@@ -65,7 +68,9 @@ export default function App() {
       {welcomeScreen ? (
         <WelcomeScreen handlerWelcome={onHandlerWelcome} />
       ) : (
-        <MainNavigation/>
+        <Provider store={store}>
+          <MainNavigation/>
+        </Provider>
           
          /*<View style={styles.screen}>
           <Header title={"Crea tu lista de compras"} />
