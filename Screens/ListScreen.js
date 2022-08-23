@@ -1,22 +1,24 @@
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import {LIST} from '../data/list'
 import { ListItem } from '../components/ListItem'
+import {useSelector, useDispatch} from 'react-redux'
+import {removeItem, confirmList} from '../store/actions/list.action'
 
 const ListScreen = () => {
 
-  const items = LIST
-  const total = 3;
+  const dispatch = useDispatch()
+
+  const {items,total} = useSelector(store => store.list)
 
   const handleConfirmList = () => {
-    console.log('Confirmar lista');
+    dispatch(confirmList(items,total));
   } 
-  const handlerDeleteList = () => {
-    console.log('Eliminar lista');
+  const handlerDeleteItem = (id) => {
+    dispatch(removeItem(id));
   }
 
   const renderItems = ({item}) => {
     return (
-      <ListItem item={item} onDelete={handlerDeleteList} />
+      <ListItem item={item} onDelete={handlerDeleteItem} />
     )
 
   }

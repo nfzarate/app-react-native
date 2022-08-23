@@ -10,7 +10,8 @@ export const ListItem = ({ item, onDelete}) => {
       </View>
       <View style={styles.detail}>
         <View>
-            <Text>Cantidad: {item.qty}</Text>
+            <Text>Cantidad: {item.quantity}</Text>
+            <Text>Precio: $ {item.price}</Text>
         </View>
         <TouchableOpacity onPress={() => onDelete(item.id)}>
             <Ionicons name='trash' color={colors.primary} size={25} />

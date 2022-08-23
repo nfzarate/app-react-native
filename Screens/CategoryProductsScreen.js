@@ -20,7 +20,7 @@ const CategoryProductsScreen = ({navigation,route}) => {
     const handleSelected = (item) => {
         dispatch(selectProduct(item.id))
         navigation.navigate('Details', {
-            name:item.name,
+            name:item.name,     
         })
     }
 
