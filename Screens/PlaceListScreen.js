@@ -1,8 +1,12 @@
+import { useEffect } from 'react'
 import { FlatList, Text } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import PlaceItem from '../components/PlaceItems/PlaceItems'
+import * as addressAction from '../store/actions/place.actions'
 
 const PlaceListScreen = ({ navigation }) => {
+
+    const dispatch = useDispatch()
     const places = useSelector(state => state.places.places)
 
     const renderItem = (data) => (
@@ -16,13 +20,17 @@ const PlaceListScreen = ({ navigation }) => {
         />
     )
 
+    useEffect(() => {
+        dispatch(addressAction.loadAddress())
+    }, [])
+
     return (
         <>
         { places?.length > 0 ? (
                 <FlatList
                     data={places}
                     renderItem={renderItem}
-                    keyExtractor={(item) => Date.now()}
+                    keyExtractor={(item) => item.id}
                 />
             ) : (
                 <Text>No hay lugares</Text>
